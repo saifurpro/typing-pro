@@ -8,6 +8,5 @@ Bangla & English typing test with practice mode, exam mode and WPM result.
 - প্র্যাকটিস মোডে ভুল শব্দ লাল হয়, পরীক্ষা মোডে কোনো হাইলাইট নেই
 - ৫ ও ১০ মিনিটের টেস্ট, ভিন্ন ভিন্ন টপিকের এলোমেলো প্যাসেজ
 - গতি ও স্ট্রোকের ফলাফল, With space ও Without space দুই হিসাবেই
-- অফলাইনে চলে, একটিমাত্র HTML ফাইল, ডার্ক মোড সাপোর্ট
 
 নোট: এটি নিজের অনুশীলনের জন্য তৈরি একটি স্বাধীন প্রজেক্ট। Bangladesh Computer Council (BCC)-এর অফিসিয়াল টুল নয়।
