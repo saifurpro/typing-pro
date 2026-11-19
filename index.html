@@ -107,22 +107,56 @@ main{max-width:none;margin:0;padding:0;min-width:0;min-height:0;display:flex;fle
 /* ===== ডেস্কটপ ভিউ লক (কোনো ডিভাইসেই রেসপনসিভ হবে না) ===== */
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%;overflow:auto}
 body{min-width:1280px;overflow:visible}
-#app{min-width:1280px;min-height:720px}
+#app{min-width:1280px}
 @media(orientation:portrait){#app{height:720px}}
+
+/* ===== টাইমার (লোগোর নিচে) ===== */
+:root{--ph:#d9480f;--tlow:#d92d20}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--ph:#fbbf24;--tlow:#ff6b61}}
+:root[data-theme="dark"]{--ph:#fbbf24;--tlow:#ff6b61}
+#tbox{margin:0 0 10px;padding:7px 6px 9px;text-align:center;border:2px solid var(--bd);border-radius:12px;background:var(--bg);transition:border-color .3s,background .3s}
+#tl{display:flex;align-items:center;justify-content:center;gap:6px;font-size:.85rem;font-weight:700;line-height:1.4;color:var(--mu)}
+#td{width:9px;height:9px;border-radius:50%;background:var(--mu);display:inline-block;flex:none}
+#tm{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:1.6rem;font-weight:700;line-height:1.25;color:var(--mu);white-space:nowrap;font-variant-numeric:tabular-nums}
+#tpr{height:5px;border-radius:3px;background:var(--bd);overflow:hidden;margin-top:5px}
+#tpb{display:block;height:100%;width:100%;border-radius:3px;background:var(--mu);transition:width .3s linear,background .3s}
+/* চলছে */
+body.tmr-run #tbox{border-color:var(--ac);background:color-mix(in srgb,var(--ac) 9%,var(--cd));animation:tglow 1.6s ease-in-out infinite}
+body.tmr-run #tl,body.tmr-run #tm{color:var(--ac)}
+body.tmr-run #td{background:var(--ac);animation:tdot 1s ease-in-out infinite}
+body.tmr-run #tm .c{animation:tcol 1s steps(1) infinite}
+body.tmr-run #tpb{background:var(--ac)}
+/* শেষ ১ মিনিট */
+body.tmr-run.tmr-low #tbox{border-color:var(--tlow);background:color-mix(in srgb,var(--tlow) 10%,var(--cd));animation:tglowl .8s ease-in-out infinite}
+body.tmr-run.tmr-low #tl,body.tmr-run.tmr-low #tm{color:var(--tlow)}
+body.tmr-run.tmr-low #td{background:var(--tlow);animation-duration:.5s}
+body.tmr-run.tmr-low #tpb{background:var(--tlow)}
+/* সময় শেষ */
+body.tmr-done #tbox{border-color:var(--tlow);animation:none}
+body.tmr-done #tl,body.tmr-done #tm{color:var(--tlow)}
+body.tmr-done #td{background:var(--tlow)}
+@keyframes tglow{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--ac) 50%,transparent)}50%{box-shadow:0 0 0 6px color-mix(in srgb,var(--ac) 0%,transparent)}}
+@keyframes tglowl{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--tlow) 55%,transparent)}50%{box-shadow:0 0 0 6px color-mix(in srgb,var(--tlow) 0%,transparent)}}
+@keyframes tdot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
+@keyframes tcol{0%{opacity:1}50%{opacity:.25}}
+@media(prefers-reduced-motion:reduce){body.tmr-run #tbox,body.tmr-run #td,body.tmr-run #tm .c{animation:none}#tpb{transition:none}}
+/* ===== টাইপিং বক্সের প্লেসহোল্ডার (হিন্ট) ===== */
+#tw>#st{position:absolute;left:13px;right:13px;top:2px;margin:0;font-size:1.25rem;line-height:var(--lh);font-weight:700;color:var(--ph);pointer-events:none;z-index:2}
+#tw.bk>#st{left:12px;right:12px;top:9px;font-size:1.2rem;line-height:1.7}
+body.tmr-run #st,body.tmr-done #st{display:none}
 </style></head><body><div id="app"><aside id="side">
-<div class="cd" id="set"><div id="sh"><button type="button" id="stg" aria-expanded="false" aria-controls="setw"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="17" x2="20" y2="17"/><circle cx="9" cy="7" r="2.2" fill="var(--cd)"/><circle cx="15" cy="17" r="2.2" fill="var(--cd)"/></svg><span>সেটিংস</span><svg class="chv" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button></div><div id="setw"><div id="setin" inert><div id="logo" style="text-align:center;margin:0 0 10px"><svg viewBox="0 0 380 380" role="img" aria-label="টাইপিং প্রো - BCC" style="width:100%;max-width:150px;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg"><defs><path id="lgTop" d="M 72,190 A 118,118 0 0 1 308,190"/><path id="lgBot" d="M 52,190 A 138,138 0 0 0 328,190"/></defs><circle cx="190" cy="190" r="170" fill="#F6F1E4" stroke="#006A4E" stroke-width="3"/><circle cx="190" cy="190" r="160" fill="#006A4E"/><circle cx="190" cy="190" r="152" fill="none" stroke="#F6F1E4" stroke-width="1.5"/><circle cx="190" cy="190" r="104" fill="#F6F1E4"/><circle cx="190" cy="190" r="108" fill="none" stroke="#F6F1E4" stroke-width="0.5"/><text font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" letter-spacing="2.5" fill="#F6F1E4" text-anchor="middle"><textPath href="#lgTop" startOffset="50%">BANGLADESH COMPUTER COUNCIL</textPath></text><text font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" letter-spacing="3" fill="#F6F1E4" text-anchor="middle"><textPath href="#lgBot" startOffset="50%">BCC · TYPING PRO</textPath></text><circle cx="62" cy="190" r="4" fill="#F42A41"/><circle cx="318" cy="190" r="4" fill="#F42A41"/><circle cx="190" cy="156" r="46" fill="#F42A41"/><rect x="140" y="128" width="100" height="56" rx="8" fill="#006A4E"/><g fill="#F6F1E4"><rect x="150" y="136" width="10" height="10" rx="2"/><rect x="164" y="136" width="10" height="10" rx="2"/><rect x="178" y="136" width="10" height="10" rx="2"/><rect x="192" y="136" width="10" height="10" rx="2"/><rect x="206" y="136" width="10" height="10" rx="2"/><rect x="220" y="136" width="10" height="10" rx="2"/><rect x="150" y="150" width="10" height="10" rx="2"/><rect x="164" y="150" width="10" height="10" rx="2"/><rect x="178" y="150" width="10" height="10" rx="2"/><rect x="192" y="150" width="10" height="10" rx="2"/><rect x="206" y="150" width="10" height="10" rx="2"/><rect x="220" y="150" width="10" height="10" rx="2"/><rect x="160" y="164" width="60" height="10" rx="2"/></g><text x="190" y="233" font-family="inherit" font-size="30" font-weight="700" fill="#006A4E" text-anchor="middle">টাইপিং প্রো</text><line x1="150" y1="248" x2="230" y2="248" stroke="#F42A41" stroke-width="2"/><text x="190" y="270" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="700" letter-spacing="4" fill="#F42A41" text-anchor="middle">BCC</text></svg></div><div class="row" id="ctl">
+<div class="cd" id="set"><div id="sh"><button type="button" id="stg" aria-expanded="false" aria-controls="setw"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="17" x2="20" y2="17"/><circle cx="9" cy="7" r="2.2" fill="var(--cd)"/><circle cx="15" cy="17" r="2.2" fill="var(--cd)"/></svg><span>সেটিংস</span><svg class="chv" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button></div><div id="setw"><div id="setin" inert><div id="logo" style="text-align:center;margin:0 0 10px"><svg viewBox="0 0 380 380" role="img" aria-label="টাইপিং প্রো - BCC" style="width:100%;max-width:150px;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg"><defs><path id="lgTop" d="M 72,190 A 118,118 0 0 1 308,190"/><path id="lgBot" d="M 52,190 A 138,138 0 0 0 328,190"/></defs><circle cx="190" cy="190" r="170" fill="#F6F1E4" stroke="#006A4E" stroke-width="3"/><circle cx="190" cy="190" r="160" fill="#006A4E"/><circle cx="190" cy="190" r="152" fill="none" stroke="#F6F1E4" stroke-width="1.5"/><circle cx="190" cy="190" r="104" fill="#F6F1E4"/><circle cx="190" cy="190" r="108" fill="none" stroke="#F6F1E4" stroke-width="0.5"/><text font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" letter-spacing="2.5" fill="#F6F1E4" text-anchor="middle"><textPath href="#lgTop" startOffset="50%">BANGLADESH COMPUTER COUNCIL</textPath></text><text font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700" letter-spacing="3" fill="#F6F1E4" text-anchor="middle"><textPath href="#lgBot" startOffset="50%">BCC · TYPING PRO</textPath></text><circle cx="62" cy="190" r="4" fill="#F42A41"/><circle cx="318" cy="190" r="4" fill="#F42A41"/><circle cx="190" cy="156" r="46" fill="#F42A41"/><rect x="140" y="128" width="100" height="56" rx="8" fill="#006A4E"/><g fill="#F6F1E4"><rect x="150" y="136" width="10" height="10" rx="2"/><rect x="164" y="136" width="10" height="10" rx="2"/><rect x="178" y="136" width="10" height="10" rx="2"/><rect x="192" y="136" width="10" height="10" rx="2"/><rect x="206" y="136" width="10" height="10" rx="2"/><rect x="220" y="136" width="10" height="10" rx="2"/><rect x="150" y="150" width="10" height="10" rx="2"/><rect x="164" y="150" width="10" height="10" rx="2"/><rect x="178" y="150" width="10" height="10" rx="2"/><rect x="192" y="150" width="10" height="10" rx="2"/><rect x="206" y="150" width="10" height="10" rx="2"/><rect x="220" y="150" width="10" height="10" rx="2"/><rect x="160" y="164" width="60" height="10" rx="2"/></g><text x="190" y="233" font-family="inherit" font-size="30" font-weight="700" fill="#006A4E" text-anchor="middle">টাইপিং প্রো</text><line x1="150" y1="248" x2="230" y2="248" stroke="#F42A41" stroke-width="2"/><text x="190" y="270" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="700" letter-spacing="4" fill="#F42A41" text-anchor="middle">BCC</text></svg></div><div id="tbox" role="timer" aria-label="সময়"><div id="tl"><i id="td"></i><span id="tlt">প্রস্তুত</span></div><div id="tm">--:--</div><div id="tpr"><b id="tpb"></b></div></div><div class="row" id="ctl">
 <label>মোড<select id="mode"><option value="pr">প্র্যাকটিস</option><option value="ex">পরীক্ষা</option><option value="bk">বই/শীট দেখে</option></select></label>
 <label>ভাষা<select id="lang"><option value="bn">বাংলা</option><option value="en">English</option></select></label>
-<label>প্যাসেজ<select id="ps"></select></label>
 <label>সময়<select id="dur"><option value="5">৫ মিনিট</option><option value="10" selected>১০ মিনিট</option></select></label>
 <label>গতি (বাংলা-ইংরেজি)<select id="prof"><option value="0">২০-২০ শব্দ/মিনিট</option><option value="1">২৫-৩০ শব্দ/মিনিট</option></select></label>
+<label>প্যাসেজ<select id="ps"></select></label>
 
 </div>
 </div></div></div>
 </aside><main>
-<div class="cd" id="play"><div id="bar"><span id="tm">সময়: --:--</span><span id="rq">⌨️ টাইপিং প্রো - Bangladesh Computer Council (BCC)</span><span id="st">প্রথম অক্ষর টাইপ করলেই সময় শুরু</span></div>
-<div id="area"><div id="pass"></div>
-<div id="tw"><div id="tv"><div id="sp"></div><div id="cr"></div></div><textarea id="ta" spellcheck="false" autocomplete="off" autocapitalize="off" autocorrect="off" placeholder="এখানে টাইপ করুন…"></textarea></div></div>
+<div class="cd" id="play"><div id="area"><div id="pass"></div>
+<div id="tw"><div id="tv"><div id="sp"></div><div id="cr"></div></div><textarea id="ta" spellcheck="false" autocomplete="off" autocapitalize="off" autocorrect="off" placeholder=""></textarea><div id="st">প্রথম অক্ষর টাইপ করলেই সময় শুরু</div></div></div>
 <div class="row" id="btns"><button id="fn" style="background:#b3261e">টেস্ট শেষ করুন</button><button id="rs">নতুন টেস্ট / রিসেট</button></div></div>
 </main></div>
 <div class="cd" id="res"></div>
@@ -180,11 +214,13 @@ function bij(k){
  val+=c}
 function build(){if(BK()){tw=[];$("#pass").innerHTML="";ms.forEach(x=>x.remove());ms=[];return}const L=lib(),p=L[+$("#ps").value]||L[0];tw=N(p.x).trim().split(/\s+/);ms.forEach(x=>x.remove());ms=[];lay=true;setTimeout(()=>fit(),0);const E=z=>z.replace(/&/g,"&amp;").replace(/</g,"&lt;");$("#pass").innerHTML=tw.map((x,i)=>`<span id="w${i}">${E(x)}</span>`).join(" ");$("#pass").scrollTop=0;TV.scrollTop=0;if(N(p.x).length<need())$("#st").textContent="⚠ এই প্যাসেজ এই সেটিংয়ের জন্য ছোট – বড় প্যাসেজ যোগ করুন"}
 function req(){const p=+$("#prof").value,l=$("#lang").value;return l==="bn"?[20,25][p]:[20,30][p]}
+function setTm(m,s){$("#tm").innerHTML=String(m).padStart(2,"0")+'<span class="c">:</span>'+String(s).padStart(2,"0")}
+function setTs(k){document.body.classList.remove("tmr-run","tmr-low","tmr-done");if(k==="run")document.body.classList.add("tmr-run");if(k==="done")document.body.classList.add("tmr-done");$("#tlt").textContent=k==="run"?"চলছে":k==="done"?"সময় শেষ":"প্রস্তুত";$("#tpb").style.width=k==="done"?"0%":"100%"}
 function reset(){
  fillPs($("#ps").value);clearInterval(tick);done=false;t0=0;val="";pend="";st=0;mins=+$("#dur").value;
  $("#tw").classList.toggle("bk",BK());$("#pass").style.display=BK()?"none":"";$("#ps").parentElement.style.display=BK()?"none":"";
   $("#ta").value="";$("#ta").disabled=false;$("#res").style.display="none";
- $("#tm").textContent="সময়: "+String(mins).padStart(2,"0")+":00";
+ setTm(mins,0);setTs("idle");
  $("#st").textContent="প্রথম অক্ষর টাইপ করলেই সময় শুরু";
  build();paint();$("#ta").focus()}
 function paint(){
@@ -199,11 +235,11 @@ function on(){
  if(done)return;
  if(!t0){if(SET.classList.contains("open"))setOpen(false);t0=Date.now();tick=setInterval(()=>{const r=mins*60-(Date.now()-t0)/1000;
   if(r<=0)return fin();const m=Math.floor(r/60),s=Math.floor(r%60);
-  $("#tm").textContent="সময়: "+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0")},250);
-  $("#st").textContent="টেস্ট চলছে…"}
+  setTm(m,s);$("#tpb").style.width=(r/(mins*60)*100)+"%";document.body.classList.toggle("tmr-low",r<=60)},250);
+  setTs("run")}
  paint();if(!BK()&&(N(val).length>=tw.join(" ").length||N(val).split(" ").length>tw.length))fin(true)}
 function fin(early){
- clearInterval(tick);done=true;$("#ta").disabled=true;$("#tm").textContent="সময়: 00:00";$("#st").textContent="সময় শেষ";
+ clearInterval(tick);done=true;$("#ta").disabled=true;setTm(0,0);setTs("done");
  fl();const ty=N(val).trim().split(/\s+/).filter(Boolean),n=ty.length,T=tw.length;
  const D=[...Array(n+1)].map((_,i)=>[i]);for(let j=1;j<=T;j++)D[0][j]=j;
  for(let i=1;i<=n;i++)for(let j=1;j<=T;j++)D[i][j]=Math.min(D[i-1][j]+1,D[i][j-1]+1,D[i-1][j-1]+(ty[i-1]===tw[j-1]?0:1));
